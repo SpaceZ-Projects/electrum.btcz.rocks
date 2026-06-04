@@ -72,6 +72,10 @@ if __name__ == "__main__":
         parser.add_argument("--host")
         parser.add_argument("--port", type=int)
         args = parser.parse_args()
+        if args.host:
+            host = args.host
+        if args.port:
+            port = args.port
 
         app = WebServer()
 
