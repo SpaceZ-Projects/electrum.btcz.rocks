@@ -1,0 +1,2815 @@
+
+@font-face {
+    font-family: 'Monda';
+    src: url('Monda.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    --tooltip-color: #252525;
+    --bg-color: #0f0f0f;
+    --bar-color: #0f0f0f;
+    --border-color: #333;
+    --text-color: #f0f0f0;
+    --box-color: #181818;
+    --dialog-color: #181818;
+    --btn-color: #252525;
+    --btn-hover-color: #414141;
+    --menu-color: #414141;
+    --menu-text-color: #b4b4b4;
+    --icon-color: #5a5a5a;
+    --click-color: #e7d801;
+    --green-color: #2dff5a;
+    --yello-color: #fdba01;
+    --glass-bg: linear-gradient(135deg,rgba(255,221,87,0.22),rgba(255,193,7,0.10));
+    --glass-border: rgba(255, 255, 255, 0.18);
+    --glass-shadow: 
+        0 8px 15px rgba(255, 193, 7, 0.18),
+        inset 0 1px 0 rgba(255,255,255,0.25);
+    --radial-range: radial-gradient(circle at 30% 30%, #ffe082, #ff9800 65%, #efb700);
+    --pulse-color : linear-gradient(
+        135deg,
+        rgba(255, 238, 80, 0.15),
+        rgba(255, 230, 0, 0.08)
+    );
+}
+
+:root.light {
+    --tooltip-color: #dcdcdc;
+    --bg-color: #eaeaea;
+    --bar-color: #eaeaea;
+    --border-color: #b8b8b8;
+    --text-color: #202020;
+    --box-color: #e6e6e6;
+    --dialog-color: #cccccc;
+    --btn-color: #dcdcdc;
+    --btn-hover-color: #c5c5c5;
+    --menu-color: #858585;
+    --menu-text-color: #383838;
+    --icon-color: #aaaaaa;
+    --click-color: #00aeff;
+    --green-color: #00aa25;
+    --yello-color: #b98800;
+    --glass-bg: linear-gradient(135deg,rgba(255,255,255,0.75),rgba(220,240,255,0.55));
+    --glass-border: rgba(245, 248, 252, 0.45);
+    --glass-shadow: 
+        0 4px 12px rgba(120, 170, 255, 0.12),
+        inset 0 1px 0 rgba(255,255,255,0.7);
+    --radial-range: radial-gradient(circle at 30% 30%, #82d1ff, #0077ff 65%, #00bfef);
+    --pulse-color : linear-gradient(
+        135deg,
+        rgba(80, 200, 255, 0.15),
+        rgba(0, 217, 255, 0.08)
+    );
+}
+
+/* Splash screen */
+div#briefcase-splash {
+    background-color:var(--bg-color);
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    height:100%;
+    top:0px;
+    left:0px;
+    z-index:1000;
+}
+div#briefcase-splash p {
+    text-align: center;
+    color: var(--text-color);
+    font-size: large;
+    font-family: 'Monda';
+    opacity: 0.8;
+    animation: fadeText 2s ease-in-out infinite;
+}
+div#briefcase-splash.hidden {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 0.2s, opacity 0.2s linear;
+}
+div#briefcase-splash img {
+    max-width: 200px;
+    margin-bottom: 30px;
+    animation: pulse 1.8s ease-in-out infinite;
+    filter: drop-shadow(1px 1px 1px #000000);
+    transform-origin: center;
+}
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.9;
+    }
+    50% {
+        transform: scale(1.08);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.9;
+    }
+}
+
+@keyframes fadeText {
+    0%, 100% {
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+/************************* Toolkit styles *************************/
+
+/* WARNING: Do not modify content between the @@ css:start @@ and
+   @@ css:end @@ markers. */
+
+/*@@ css:start @@*/
+/**************************************************
+ * toga_web 0.5.3 (legacy static CSS: toga.css)
+ *************************************************/
+/**********************************************************************
+ * Main page
+ **********************************************************************/
+
+* {
+    box-sizing: border-box;
+    line-height: 1;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+html, body {
+    max-height: calc(100vh);
+    margin: 0;
+    background: var(--bg-color);
+    font-family: 'Monda';
+    -webkit-user-select: none;
+    user-select: none;
+    overflow: hidden;
+    overscroll-behavior: none;
+}
+
+body {
+    display: flex;
+    flex-direction: row; /* sidebar + main */
+}
+
+#app-placeholder {
+    font-family: var(--sl-font-sans);
+    font-size: var(--sl-font-size-medium);
+}
+
+/* If a custom element hasn't been defined yet, hide it from rendering */
+:not(:defined) {
+    visibility: hidden;
+}
+
+/**********************************************************************
+ * Application header
+ **********************************************************************/
+
+header.toga {
+    background-color: var(--sl-color-primary-800);
+    color: var(--sl-color-neutral-50);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+/***** App branding logo **********************************************/
+
+header.toga a.brand {
+    margin: 8px 1em;
+}
+
+header.toga a.brand img {
+    width: 32px;
+}
+
+header.toga nav {
+    display: inline-block;
+}
+
+header.toga nav.menubar {
+    flex-grow: 1;
+    font-family: var(--sl-font-sans);
+    font-size: var(--sl-font-size-large);
+}
+
+header.toga nav.menubar:last-of-type {
+    flex-grow: 0;
+    padding-right: 1em;
+}
+
+/***** Menubar ********************************************************/
+
+header.toga nav.menubar .menu {
+    color: var(--sl-color-neutral-200);
+    padding: 0.5em;
+}
+
+header.toga nav.menubar .menu:hover {
+    background-color: var(--sl-color-primary-700);
+    color: var(--sl-color-primary-300);
+}
+
+header.toga nav.menubar .app {
+    color: var(--sl-color-neutral-50);
+    font-weight: var(--sl-font-weight-bold);
+}
+
+/**********************************************************************
+ * Main window
+ **********************************************************************/
+
+main.toga.window {
+    overflow: hidden;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+main.toga.window > .container {
+    /* The immediate container descendents of the window must expand
+       to fill the full width of the window. */
+    flex-grow: 1 !important;
+}
+
+/**********************************************************************
+ * Widgets
+ **********************************************************************/
+
+/***** All containers *************************************************/
+
+.toga .container {
+    display: flex;
+}
+
+/***** Label **********************************************************/
+.toga .label {
+    white-space: nowrap;
+    font-family: 'Monda';
+}
+/*@@ css:end @@*/
+
+
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+#toga_main_box {
+    display: flex;
+    background: var(--bg-color);
+    max-height: calc(100vh);
+    min-height: calc(100vh);
+}
+
+#toga_main_box.mobile {
+    max-height: calc(100vh - 60px);
+    min-height: calc(100vh - 60px);
+}
+
+
+/**********************************************************************
+ * Alert
+ **********************************************************************/
+
+
+sl-alert::part(base) {
+    position: fixed;
+    color: var(--text-color);
+    font-family: 'Monda';
+    font-size: clamp(13px, 1vw, 16px);
+    font-weight: 500;
+    background: var(--box-color);
+    top: 20px;
+    right: 20px;
+    margin: 0 !important;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    z-index: 9999;
+}
+
+
+/**********************************************************************
+ * Dialog
+ **********************************************************************/
+
+
+sl-dialog::part(panel) {
+    color: var(--text-color);
+    background: var(--dialog-color) !important;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--border-color);
+}
+
+sl-dialog::part(body) {
+    scrollbar-width: thin;
+    scrollbar-color: var(--click-color) #22222200;
+}
+
+sl-dialog::part(close-button) {
+    display: none;
+}
+
+sl-dialog::part(overlay) {
+    background: rgba(0, 0, 0, 0.7) !important;
+}
+
+sl-dialog::part(title) {
+    font-size: clamp(18px, 2vw, 24px);
+    font-family: 'Monda';
+}
+
+/**********************************************************************
+ * Drawer
+ **********************************************************************/
+
+sl-drawer::part(panel) {
+    color: var(--text-color);
+    background: var(--dialog-color) !important;
+    border-radius: var(--drawer-border-radius, 0);
+}
+
+sl-drawer::part(overlay) {
+    background: rgba(0, 0, 0, 0.7) !important;
+}
+
+sl-drawer::part(close-button__base) {
+    background: var(--bg-color);
+    border-radius: 50%;
+    padding: 5px;
+    transition: color 0.2s ease;
+}
+
+sl-drawer::part(close-button__base):hover {
+    color: var(--click-color);
+}
+
+
+/**********************************************************************
+ * TextInput
+ **********************************************************************/
+
+sl-input::part(base) {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    box-sizing: border-box;
+    box-shadow: none;
+    transition: border-color 0.3s;
+}
+
+sl-input.error::part(base) {
+    border-color: #ff4747;
+}
+
+sl-input::part(input) {
+    font-family: 'Monda';
+    background: var(--bg-color);
+    color: var(--text-color);
+    border: none;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+sl-input:not(.error)::part(base):hover,
+sl-input:not(.error)::part(base):focus-within {
+    border-color: var(--click-color);
+}
+
+sl-input[type="number"]::part(input)::-webkit-inner-spin-button,
+sl-input[type="number"]::part(input)::-webkit-outer-spin-button {
+    display: none;
+}
+
+
+sl-textarea::part(base) {
+    display: flex;
+    flex: 1;
+    background-color: #131313 !important;
+    border: 1px solid #444;
+    border-radius: 10px;
+    box-sizing: border-box;
+    box-shadow: none;
+    transition: border-color 0.3s;
+}
+
+sl-textarea::part(textarea) {
+    font-family: 'Monda';
+    background-color: var(--bg-color) !important;
+    color: var(--text-color);
+    padding: 10px;
+    font-size: 15px;
+    border-radius: 10px;
+    border: none;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+sl-textarea::part(base):hover,
+sl-textarea::part(base):focus-within {
+    border-color: var(--click-color) !important;
+}
+
+sl-textarea::part(textarea)::-webkit-scrollbar {
+    display: none;
+}
+
+
+/**********************************************************************
+ * Range
+ **********************************************************************/
+
+sl-range {
+  --track-color-active: var(--click-color);
+  --track-color-inactive: rgba(255, 255, 255, 0.08);
+  --track-height: 10px;
+  --thumb-size: 20px;
+  --tooltip-offset: 14px;
+}
+
+sl-range::part(base) {
+  padding: 10px 0;
+}
+
+sl-range::part(tooltip) {
+    background: var(--tooltip-color);
+    color: var(--text-color);
+    font-family: 'Monda';
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    pointer-events: none;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 4px #00000070;
+}
+
+sl-range::part(input)::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--radial-range);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
+}
+
+sl-range::part(input)::-webkit-slider-thumb:hover {
+  transform: scale(1.08);
+}
+
+sl-range::part(input)::-webkit-slider-thumb:active {
+  transform: scale(0.96);
+}
+
+
+sl-range::part(input)::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border: none;
+  border-radius: 50%;
+  background: var(--radial-range);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
+}
+
+/**********************************************************************
+ * PWA
+ **********************************************************************/
+
+#toga_pwa_box {
+    display: flex;
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translate(-50%, 100px);
+    opacity: 0;
+    pointer-events: none;
+    padding: 5px 20px;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var( --border-color);
+    border-radius: 25px;
+    gap: 10px;
+    z-index: 101;
+    transition:
+        transform 0.3s ease,
+        opacity 0.3s ease;
+}
+
+#toga_pwa_box.show {
+    transform: translate(-50%, 0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#toga_pwa_button {
+    cursor: pointer;
+    background: var(--btn-color);
+    border-radius: 20px;
+    padding: 10px;
+    border-bottom: 1px solid var(--bg-color);
+    gap: 10px;
+}
+
+#toga_pwa_button:hover {
+    background: var(--click-color);
+}
+
+#toga_pwa_button:hover #toga_pwa_button_label {
+    color: var(--bg-color);
+}
+
+#toga_pwa_button:hover #pwa_button_icon {
+    color: var(--bg-color);
+}
+
+#pwa_button_icon {
+    color: var(--text-color);
+    font-size: 16px;
+}
+
+#toga_pwa_button_label {
+    color: var(--text-color);
+    font-size: 14px;
+}
+
+#toga_pwa_label {
+    color: var(--text-color);
+    font-size: 14px;
+}
+
+/**********************************************************************
+ * Menu
+ **********************************************************************/
+
+
+#toga_desktop_menu {
+    display: none;
+    width: 180px;
+    height: 100%;
+    background: var(--box-color);
+    border-right: 1px solid var(--border-color);
+    align-self: center;
+    gap: 10px;
+}
+
+#toga_desktop_menu.active {
+    display: flex;
+}
+
+#toga_menu_electrum_box {
+    margin-top: 5px;
+    padding: 10px 5px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+#menu_electrum_title {
+    filter: drop-shadow(1px 1px 1px #000000);
+}
+
+#toga_navigation_box {
+    gap: 10px;
+}
+
+#toga_menu_history_button,
+#toga_menu_receive_button,
+#toga_menu_send_button,
+#toga_menu_tools_button,
+#toga_menu_settings_button {
+    cursor: pointer;
+    background: var(--btn-color);
+    padding: 10px;
+    justify-content: start;
+    border-radius: 6px;
+    margin: 5px;
+    gap: 10px;
+    border-bottom: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+}
+
+#toga_menu_history_button:hover,
+#toga_menu_receive_button:hover,
+#toga_menu_send_button:hover,
+#toga_menu_tools_button:hover,
+#toga_menu_settings_button:hover {
+    background: var(--btn-hover-color);
+    border-color: var(--click-color);
+}
+
+#toga_menu_history_label,
+#toga_menu_receive_label,
+#toga_menu_send_label,
+#toga_menu_tools_label,
+#toga_menu_settings_label {
+    color: var(--icon-color);
+    font-size: 16px;
+    transition: color 0.2s ease;
+}
+
+#menu_history_icon,
+#menu_receive_icon,
+#menu_send_icon,
+#menu_tools_icon,
+#menu_settings_icon {
+    color: var(--icon-color);
+    font-size: 16px;
+}
+
+#toga_menu_history_button:hover #toga_menu_history_label,
+#toga_menu_receive_button:hover #toga_menu_receive_label,
+#toga_menu_send_button:hover #toga_menu_send_label,
+#toga_menu_tools_button:hover #toga_menu_tools_label,
+#toga_menu_settings_button:hover #toga_menu_settings_label {
+    color: var(--text-color);
+}
+
+#toga_menu_history_button:hover #menu_history_icon,
+#toga_menu_receive_button:hover #menu_receive_icon,
+#toga_menu_send_button:hover #menu_send_icon,
+#toga_menu_tools_button:hover #menu_tools_icon,
+#toga_menu_settings_button:hover #menu_settings_icon {
+    color: var(--text-color);
+}
+
+#toga_menu_history_button.active,
+#toga_menu_receive_button.active,
+#toga_menu_send_button.active,
+#toga_menu_tools_button.active,
+#toga_menu_settings_button.active {
+    background: var(--btn-hover-color);
+    border-color: var(--click-color);
+}
+
+#toga_menu_history_button.active #toga_menu_history_label,
+#toga_menu_receive_button.active #toga_menu_receive_label,
+#toga_menu_send_button.active #toga_menu_send_label,
+#toga_menu_tools_button.active #toga_menu_tools_label,
+#toga_menu_settings_button.active #toga_menu_settings_label {
+    color: var(--text-color);
+}
+
+#toga_menu_history_button.active #menu_history_icon,
+#toga_menu_receive_button.active #menu_receive_icon,
+#toga_menu_send_button.active #menu_send_icon,
+#toga_menu_tools_button.active #menu_tools_icon,
+#toga_menu_settings_button.active #menu_settings_icon {
+    color: var(--text-color);
+}
+
+#toga_mobile_menu {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 60px;
+    transform: translateX(-50%);
+    background: var(--box-color);
+    border-top: 1px solid var(--border-color);
+    bottom: 0;
+    left: 50%;
+    justify-content: center;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 -3px 5px #00000070;
+}
+
+#toga_mobile_menu.active {
+    display: flex;
+}
+
+#toga_mobile_menu_navigation_box {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    height: 100%;
+    border-radius: 10px 10px 0 0;
+}
+
+#toga_mobile_menu_history_button,
+#toga_mobile_menu_receive_button,
+#toga_mobile_menu_send_button,
+#toga_mobile_menu_tools_button,
+#toga_mobile_menu_settings_button {
+    cursor: pointer;
+    background: var(--box-color);
+    padding: 10px;
+    align-items: center;
+    gap: 5px;
+    border-bottom: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+}
+
+#toga_mobile_menu_history_button {
+    border-top-left-radius: 10px;
+}
+
+#toga_mobile_menu_settings_button {
+    border-top-right-radius: 10px;
+}
+
+#toga_mobile_menu_history_button:hover,
+#toga_mobile_menu_receive_button:hover,
+#toga_mobile_menu_send_button:hover,
+#toga_mobile_menu_tools_button:hover,
+#toga_mobile_menu_settings_button:hover {
+    background: var(--btn-hover-color);
+}
+
+#toga_mobile_menu_history_label,
+#toga_mobile_menu_receive_label,
+#toga_mobile_menu_send_label,
+#toga_mobile_menu_tools_label,
+#toga_mobile_menu_settings_label {
+    color: var(--icon-color);
+    font-size: clamp(10px, 2vw, 16px);
+}
+
+#mobile_menu_history_icon,
+#mobile_menu_receive_icon,
+#mobile_menu_send_icon,
+#mobile_menu_tools_icon,
+#mobile_menu_settings_icon {
+    color: var(--icon-color);
+    font-size: 16px;
+}
+
+#toga_mobile_menu_history_button:hover #toga_mobile_menu_history_label,
+#toga_mobile_menu_receive_button:hover #toga_mobile_menu_receive_label,
+#toga_mobile_menu_send_button:hover #toga_mobile_menu_send_label,
+#toga_mobile_menu_tools_button:hover #toga_mobile_menu_tools_label,
+#toga_mobile_menu_settings_button:hover #toga_mobile_menu_settings_label {
+    color: var(--text-color);
+}
+
+#toga_mobile_menu_history_button:hover #mobile_menu_history_icon,
+#toga_mobile_menu_receive_button:hover #mobile_menu_receive_icon,
+#toga_mobile_menu_send_button:hover #mobile_menu_send_icon,
+#toga_mobile_menu_tools_button:hover #mobile_menu_tools_icon,
+#toga_mobile_menu_settings_button:hover #mobile_menu_settings_icon {
+    color: var(--text-color);
+}
+
+#toga_mobile_menu_history_button.active,
+#toga_mobile_menu_receive_button.active,
+#toga_mobile_menu_send_button.active,
+#toga_mobile_menu_tools_button.active,
+#toga_mobile_menu_settings_button.active {
+    background: var(--btn-hover-color);
+    border-color: var(--click-color);
+}
+
+#toga_mobile_menu_history_button.active #toga_mobile_menu_history_label,
+#toga_mobile_menu_receive_button.active #toga_mobile_menu_receive_label,
+#toga_mobile_menu_send_button.active #toga_mobile_menu_send_label,
+#toga_mobile_menu_tools_button.active #toga_mobile_menu_tools_label,
+#toga_mobile_menu_settings_button.active #toga_mobile_menu_settings_label {
+    color: var(--text-color);
+}
+
+#toga_mobile_menu_history_button.active #mobile_menu_history_icon,
+#toga_mobile_menu_receive_button.active #mobile_menu_receive_icon,
+#toga_mobile_menu_send_button.active #mobile_menu_send_icon,
+#toga_mobile_menu_tools_button.active #mobile_menu_tools_icon,
+#toga_mobile_menu_settings_button.active #mobile_menu_settings_icon {
+    color: var(--text-color);
+}
+
+
+/**********************************************************************
+ * Header
+ **********************************************************************/
+
+
+#toga_page_header {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 185px;
+    right: 5px;
+    min-height: 165px;
+    max-height: 165px;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-color);
+    border-radius: 10px;
+    gap: 5px;
+    padding: 5px;
+    box-shadow: 0 3px 5px #00000070;
+    z-index: 100;
+}
+
+#toga_page_header.active {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.3fr 1fr;
+}
+
+#toga_page_header.mobile {
+    left: 5px;
+}
+
+#toga_header_balance_box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 10px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: var(--glass-shadow);
+    overflow: hidden;
+}
+
+#toga_header_price_value {
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: var(--icon-color);
+    margin: 5px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    background: var(--bg-color);
+    font-size: clamp(10px, 2vw, 14px);
+    border-bottom: 1px solid var(--border-color);
+}
+
+#toga_header_account_box {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 10px;
+    gap: 5px;
+    align-items: center;
+}
+
+#header_account_icon {
+    color: var(--text-color);
+    font-size: clamp(14px, 1.5vw, 18px);
+}
+
+#toga_header_account_name {
+    color: var(--text-color);
+    font-size: clamp(10px, 1.5vw, 16px);
+}
+
+#toga_header_balance_label {
+    color: var(--text-color);
+    font-size: clamp(16px, 2vw, 18px);
+}
+
+#toga_header_confirmed_balance {
+    color: var(--text-color);
+    font-size: clamp(12px, 2vw, 15px);
+}
+
+#toga_header_unconfirmed_balance {
+    display: none;
+    font-size: clamp(11px, 2vw, 14px);
+}
+
+#toga_header_unconfirmed_balance.positive {
+    color: var(--green-color);
+    display: block;
+}
+
+#toga_header_unconfirmed_balance.negative {
+    display: block;
+    color: #ff4747;
+}
+
+#toga_header_status_box {
+    display: flex;
+    flex-direction: column;
+    background: var(--box-color);
+    align-items: start;
+    border-radius: 10px;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    align-items: center;
+}
+
+#toga_header_donation_button {
+    cursor: pointer;
+    background: var(--btn-color);
+    border-radius: 6px;
+    gap: 5px;
+    padding: 3px;
+    transition: background 0.2s ease;
+}
+
+#toga_header_donation_button:hover {
+    background: var(--btn-hover-color);
+}
+
+#header_donation_button_icon {
+    color: #ff4848;
+    font-size: clamp(10px, 2vw, 12px);
+}
+
+#toga_header_donation_button_label {
+    color: var(--text-color);
+    font-size: clamp(10px, 2vw, 12px);
+}
+
+@media (max-width: 360px) {
+    #toga_header_donation_button_label {
+        display: none;
+    }
+}
+
+
+/**********************************************************************
+ * Pages
+ **********************************************************************/
+
+
+#toga_pages {
+    position: relative;
+    background: var(--bg-color);
+    display: flex;
+    flex: 1;
+    padding: 5px;
+    gap: 5px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+}
+
+
+/**********************************************************************
+ * Status
+ **********************************************************************/
+
+
+.status_icon {
+    color: var(--icon-color);
+    font-size: clamp(10px, 2vw, 12px);
+}
+
+.status_icon.off {
+    color: #ff4747;
+    animation: pulse-red 1.5s infinite;
+}
+
+.status_icon.on {
+    color: var(--green-color);
+    animation: pulse-green 1.5s infinite;
+}
+
+.status_icon.retry {
+    color: var(--yello-color);
+    animation: pulse-yellow 1.5s infinite;
+}
+
+@keyframes pulse-green {
+    0%   { filter: drop-shadow(0 0 0px var(--green-color)); }
+    50%  { filter: drop-shadow(0 0 3px var(--green-color)); }
+    100% { filter: drop-shadow(0 0 0px var(--green-color)); }
+}
+
+@keyframes pulse-red {
+    0%   { filter: drop-shadow(0 0 0px #ff4747); }
+    50%  { filter: drop-shadow(0 0 3px #ff4747); }
+    100% { filter: drop-shadow(0 0 0px #ff4747); }
+}
+
+@keyframes pulse-yellow {
+    0%   { filter: drop-shadow(0 0 0px var(--yello-color)); }
+    50%  { filter: drop-shadow(0 0 3px var(--yello-color)); }
+    100% { filter: drop-shadow(0 0 0px var(--yello-color)); }
+}
+
+#toga_electrum_status_box {
+    gap: 10px;
+    margin-bottom: 10px;
+    justify-content: center;
+    border: 1px dashed var(--border-color);
+    border-radius: 10px;
+    padding: 5px 20px;
+}
+
+.electrum_height_icon {
+    color: var(--icon-color);
+    font-size: clamp(10px, 2vw, 12px);
+}
+
+.electrum_height_value,
+.electrum_version_value,
+.electrum_protocol_value {
+    color: var(--text-color);
+    font-size: clamp(10px, 2vw, 12px);
+    font-family: 'Monda';
+}
+
+
+/**********************************************************************
+ * Accounts
+ **********************************************************************/
+
+
+#toga_accounts_page {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: var(--bg-color);
+    overflow-y: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    gap: 15px;
+}
+
+#toga_accounts_page.show {
+    display: flex;
+    flex: 1;
+}
+
+#toga_accounts_page.active {
+    opacity: 1;
+}
+
+#accounts_electrum_title {
+    width: clamp(300px, 50vw, 439px);
+    filter: drop-shadow(1px 1px 1px #000000);
+    -webkit-user-drag: none;
+}
+
+#toga_electrum_info_box {
+    gap: 5px;
+}
+
+#toga_accounts_box,
+#toga_create_box,
+#toga_new_box,
+#toga_import_box {
+    display: none;
+    width: clamp(300px, 80vw, 600px);
+    padding: 5px;
+    border-radius: 10px;
+    background: var(--box-color);
+    border: 1px solid var(--border-color);
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+#toga_accounts_box.show,
+#toga_create_box.show,
+#toga_new_box.show,
+#toga_import_box.show {
+    display: flex;
+}
+
+#toga_accounts_box.active,
+#toga_create_box.active,
+#toga_new_box.active,
+#toga_import_box.active {
+    opacity: 1;
+}
+
+#toga_accounts_notfound_label {
+    color: var(--icon-color);
+    text-align: center;
+}
+
+#toga_accounts_list_box {
+    display: flex;
+    flex: 1;
+    width: 280px;
+    padding: 10px;
+    border-radius: 10px;
+    background: var(--bar-color);
+    border: 1px solid var(--border-color);
+    gap: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+#toga_accounts_add_account_button {
+    cursor: pointer;
+    padding: 10px;
+    background: var(--btn-color);
+    border-radius: 10px;
+    gap: 10px;
+    justify-content: center;
+    transition: background 0.2s ease;
+}
+
+#toga_accounts_add_account_button:hover {
+    background: var(--btn-hover-color);
+}
+
+#accounts_add_account_icon {
+    font-size: 16px;
+    color: var(--icon-color);
+    transition: color 0.2s ease;
+}
+
+#toga_accounts_add_account_button:hover #accounts_add_account_icon {
+    color: var(--text-color);
+}
+
+#toga_accounts_add_account_label {
+    color: var(--text-color);
+}
+
+#toga_account_widget {
+    cursor: pointer;
+    padding: 10px;
+    background: var(--btn-color);
+    border-radius: 6px;
+    justify-content: space-between;
+    transition: background 0.2s ease;
+}
+
+#toga_account_widget:hover {
+    background: var(--btn-hover-color);
+}
+
+#account_widget_icon {
+    color: var(--icon-color);
+    font-size: 14px;
+}
+
+#toga_account_name_label {
+    color: var(--text-color);
+    font-size: 14px;
+}
+
+
+/**********************************************************************
+ * Create
+ **********************************************************************/
+
+#toga_create_back_button,
+#toga_new_back_button,
+#toga_import_back_button {
+    cursor: pointer;
+    margin-right: auto;
+    padding: 5px;
+    border-radius: 6px;
+    background: var(--btn-color);
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#create_back_button_icon,
+#new_back_button_icon,
+#import_back_button_icon {
+    color: var(--icon-color);
+    font-size: 14px;
+    transition: color 0.2s ease;
+}
+
+#toga_create_back_button_label,
+#toga_new_back_button_label,
+#toga_import_back_button_label {
+    color: var(--icon-color);
+    font-size: 14px;
+    transition: color 0.2s ease;
+}
+
+#toga_create_back_button:hover #toga_create_back_button_label,
+#toga_create_back_button:hover #create_back_button_icon {
+    color: var(--text-color);
+}
+
+#toga_new_back_button:hover #toga_new_back_button_label,
+#toga_new_back_button:hover #new_back_button_icon,
+#toga_import_back_button:hover #toga_import_back_button_label,
+#toga_import_back_button:hover #import_back_button_icon {
+    color: #ff3300;
+}
+
+#toga_create_new_button,
+#toga_create_import_button {
+    cursor: pointer;
+    padding: 10px;
+    background: var(--btn-color);
+    border-radius: 10px;
+    gap: 10px;
+    justify-content: start;
+    transition: background 0.2s ease;
+    width: 170px;
+}
+
+#toga_create_new_button:hover,
+#toga_create_import_button:hover {
+    background: var(--btn-hover-color);
+}
+
+#create_new_button_icon,
+#create_import_button_icon {
+    color: var(--icon-color);
+    font-size: 16px;
+    transition: color 0.2s ease;
+}
+
+#toga_create_new_button:hover #create_new_button_icon,
+#toga_create_import_button:hover #create_import_button_icon {
+    color: var(--text-color);
+}
+
+#toga_create_new_button_label,
+#toga_create_import_button_label {
+    color: var(--text-color);
+}
+
+#toga_new_note_box {
+    display: flex;
+    background: var(--bar-color);
+    border: 1px solid var(--click-color);
+    border-radius: 10px;
+    padding: 10px;
+    justify-content: center;
+    min-width: 0;
+    margin-bottom: 10px;
+}
+
+#toga_new_note_label {
+    color: var(--text-color);
+    font-size: 13px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    line-height: 1.6;
+    max-width: 100%;
+    text-align: center;
+}
+
+#toga_new_seed_label {
+    color: var(--text-color);
+    font-size: 14px;
+}
+
+#toga_new_seed_value_box {
+    display: flex;
+    background: var(--bar-color);
+    border: 1px dashed var(--border-color);
+    border-radius: 10px;
+    padding: 10px;
+    justify-content: center;
+    min-width: 0;
+}
+
+#toga_new_seed_value {
+    color: var(--text-color);
+    font-size: 15px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    line-height: 1.6;
+    max-width: 100%;
+    text-align: center;
+    word-spacing: 6px;
+    filter: blur(3px);
+    transition: filter 0.2s ease;
+}
+
+#toga_new_seed_value:hover {
+    filter: blur(0);
+}
+
+#toga_new_buttons_box,
+#toga_import_switch_box {
+    gap: 20px;
+}
+
+#toga_new_copy_button,
+#toga_new_save_button,
+#toga_import_save_button {
+    cursor: pointer;
+    background: var(--btn-color);
+    border-radius: 10px;
+    padding: 10px;
+    gap: 5px;
+    transition: background 0.2s ease;
+}
+
+#toga_new_copy_button:hover,
+#toga_new_save_button:hover,
+#toga_import_save_button:hover {
+    background: var(--btn-hover-color);
+}
+
+#toga_new_copy_button:hover #new_copy_icon,
+#toga_new_save_button:hover #new_save_icon,
+#toga_import_save_button:hover #import_save_icon {
+    color: var(--text-color);
+}
+
+#new_copy_icon,
+#new_save_icon,
+#import_save_icon {
+    color: var(--icon-color);
+    transition: color 0.2s ease;
+}
+
+#toga_new_copy_label,
+#toga_new_save_label,
+#toga_import_save_label {
+    color: var(--text-color);
+}
+
+#toga_import_switch_box {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    gap: 5px;
+}
+
+#toga_import_seed_tab {
+    cursor: pointer;
+    background: var(--btn-color);
+    justify-content: center;
+    padding: 10px;
+    border-top-left-radius: 10px;
+    transition: background 0.2s ease;
+}
+
+#toga_import_seed_tab.active {
+    cursor: default;
+    background: var(--btn-hover-color);
+}
+
+#toga_import_seed_tab.active #toga_import_seed_tab_label {
+    color: var(--text-color);
+}
+
+#toga_import_seed_tab:hover {
+    background: var(--btn-hover-color);
+}
+
+#toga_import_seed_tab:hover #toga_import_seed_tab_label {
+    color: var(--text-color);
+}
+
+#toga_import_wif_tab {
+    cursor: pointer;
+    background: var(--btn-color);
+    justify-content: center;
+    padding: 10px;
+    border-top-right-radius: 10px;
+    transition: background 0.2s ease;
+}
+
+#toga_import_wif_tab.active {
+    cursor: default;
+    background: var(--btn-hover-color);
+    color: var(--text-color);
+}
+
+#toga_import_wif_tab.active #toga_import_wif_tab_label {
+    color: var(--text-color);
+}
+
+#toga_import_wif_tab:hover {
+    background: var(--btn-hover-color);
+}
+
+#toga_import_wif_tab:hover #toga_import_wif_tab_label {
+    color: var(--text-color);
+}
+
+
+#toga_import_seed_tab_label,
+#toga_import_wif_tab_label {
+    color: var(--icon-color);
+    font-size: 14px;
+    transition: color 0.2s ease;
+}
+
+#toga_import_key_box {
+    width: 100%;
+}
+
+/**********************************************************************
+ * History
+ **********************************************************************/
+
+
+#toga_history_page {
+    display: none;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    overflow-y: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    gap: 10px;
+    margin-top: 165px;
+    margin-bottom: 60px;
+}
+
+#toga_history_page.show {
+    display: flex;
+}
+
+#toga_history_page.active {
+    opacity: 1;
+}
+
+#toga_history_transactions_box {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto; 
+    gap: 5px;
+}
+
+#history_spinner {
+    margin-top: 10px;
+    font-size: 25px;
+    --indicator-color: var(--click-color);
+    --track-width: 5px;
+    align-self: center;
+}
+
+#history_spinner.hidden {
+    display: none;
+}
+
+
+/**********************************************************************
+ * Receive
+ **********************************************************************/
+
+
+#toga_receive_page {
+    display: none;
+    flex-direction: column;
+    overflow-y: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 165px;
+    margin-bottom: 80px;
+}
+
+#toga_receive_page.show {
+    display: flex;
+    flex: 1;
+}
+
+#toga_receive_page.active {
+    opacity: 1;
+}
+
+#toga_receive_qr_code_box {
+    padding: 10px;
+    background: var(--box-color);
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    align-items: center;
+    width: fit-content;
+}
+
+#receive_qr_code {
+    background: #ffffff;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+#toga_receive_address_label {
+    color: var(--text-color);
+    font-size: 16px;
+    white-space: pre-wrap;
+    word-break: break-all;
+    letter-spacing: 1px;
+    word-spacing: 2px;
+    -webkit-user-select: text;
+    user-select: text;
+}
+
+#toga_receive_copy_button {
+    cursor: pointer;
+    background: var(--btn-color);
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+    gap: 5px;
+    transition: background 0.2s ease;
+}
+
+#toga_receive_copy_button:hover {
+    background: var(--btn-hover-color);
+}
+
+#toga_receive_copy_button:hover #receive_copy_icon {
+    color: var(--text-color);
+}
+
+#receive_copy_icon {
+    color: var(--icon-color);
+    transition: color 0.2s ease;
+}
+
+#toga_receive_copy_label {
+    color: var(--text-color);
+}
+
+
+/**********************************************************************
+ * Send
+ **********************************************************************/
+
+
+#toga_send_page {
+    display: none;
+    flex-direction: column;
+    overflow-y: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    gap: 10px;
+    margin-top: 165px;
+    margin-bottom: 120px;
+}
+
+#toga_send_page.show {
+    display: flex;
+}
+
+#toga_send_page.active {
+    opacity: 1;
+}
+
+#toga_send_button_box {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    width: 80%;
+    height: 40px;
+    box-sizing: border-box;
+    align-self: center;
+}
+
+#toga_send_button {
+    cursor: pointer;
+    display: flex;
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background: var(--btn-color);
+    border-radius: 10px;
+    transition: background 0.2s ease;
+}
+
+#toga_send_button.active {
+    background: var(--click-color);
+}
+
+#toga_send_button.active:hover {
+    background: var(--click-color);
+}
+
+#toga_send_button.active #toga_send_button_label {
+    color: var(--bg-color)
+}
+
+#toga_send_button:hover {
+    background: var(--btn-hover-color);
+}
+
+#toga_send_button_box.mobile {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 60px;
+    height: 60px;
+    padding: 5px;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: stretch;
+    box-sizing: border-box;
+}
+
+#toga_send_button_box.mobile #toga_send_button {
+    box-shadow: 0 -3px 5px #00000070;
+}
+
+#toga_send_button_label {
+    color: var(--text-color);
+    font-size: 16px;
+}
+
+#toga_send_destination_box,
+#toga_send_amount_box,
+#toga_send_fee_box {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 0.2fr 1fr;
+    background: var(--box-color);
+    padding: 10px;
+    border-radius: 10px;
+    gap: 10px;
+    align-items: center;
+}
+
+#toga_send_destination_label,
+#toga_send_amount_label,
+#toga_send_fee_label {
+    color: var(--text-color);
+}
+
+#toga_send_destination_input_box,
+#toga_send_amount_input_box,
+#toga_send_fee_input_box {
+    gap: 10px;
+    align-items: center;
+}
+
+.amount_input_prefix_icon {
+    cursor: pointer;
+    font-size: 18px;
+    color: var(--text-color);
+}
+
+#toga_send_max_button {
+    cursor: pointer;
+    background: var(--btn-color);
+    padding: 10px;
+    border-radius: 10px;
+    transition: background 0.2s ease;
+}
+
+#toga_send_max_button:hover {
+    background: var(--btn-hover-color);
+}
+
+#toga_send_max_button_label {
+    color: var(--text-color);
+}
+
+@media (max-width: 690px) {
+    #toga_send_destination_box,
+    #toga_send_amount_box,
+    #toga_send_fee_box {
+        grid-template-columns: 1fr;
+        row-gap: 10px;
+        padding: 5px;
+    }
+    #toga_send_destination_label,
+    #toga_send_amount_label,
+    #toga_send_fee_label {
+        text-align: start;
+        margin-left: 5px;
+    }
+}
+
+#send_qr_button {
+    cursor: pointer;
+    color: var(--text-color);
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+#toga_broadcast_drawer_box {
+    display: flex;
+}
+
+#toga_broadcast_result_box {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+#toga_broadcast_drawer_box.hide {
+    display: none;
+}
+
+#toga_broadcast_result_box.show {
+    display: flex;
+}
+
+#toga_broadcast_box {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-color);
+    border-radius: 10px;
+    justify-self: center;
+    align-self: center;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    gap: 15px;
+}
+
+#toga_broadcast_destination_label,
+#toga_broadcast_amount_label,
+#toga_broadcast_fee_label {
+    color: var(--text-color);
+    font-size: clamp(13px, 2vw, 17px);
+}
+
+#toga_broadcast_confirm_button,
+#toga_broadcast_view_button {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    background: var(--btn-color);
+    border-radius: 10px;
+    padding: 10px;
+    justify-self: center;
+    align-self: center;
+    gap: 5px;
+    transition: background 0.2s ease;
+}
+
+#toga_broadcast_confirm_button:hover,
+#toga_broadcast_view_button:hover {
+    background: var(--btn-hover-color);
+}
+
+#toga_broadcast_confirm_button:hover #broadcast_confirm_icon {
+    color: var(--text-color);
+}
+
+#broadcast_confirm_icon {
+    color: var(--icon-color);
+    transition: color 0.2s ease;
+}
+
+#toga_boadcast_confirm_label,
+#toga_broadcast_view_label {
+    color: var(--text-color);
+}
+
+#broadcast_success_icon {
+    color: var(--green-color);
+    font-size: 50px;
+}
+
+#toga_broadcast_success_label {
+    color: var(--text-color);
+}
+
+/**********************************************************************
+ * Tools
+ **********************************************************************/
+
+
+#toga_tools_page {
+    display: none;
+    flex-direction: column;
+    overflow-y: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    gap: 10px;
+    margin-top: 165px;
+    margin-bottom: 120px;
+}
+
+#toga_tools_page.show {
+    display: flex;
+}
+
+#toga_tools_page.active {
+    opacity: 1;
+}
+
+#toga_tools_button_box {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    width: 80%;
+    height: 40px;
+    box-sizing: border-box;
+    align-self: center;
+}
+
+#toga_tools_button {
+    cursor: pointer;
+    display: flex;
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background: var(--btn-color);
+    border-radius: 10px;
+    transition: background 0.2s ease;
+}
+
+#toga_tools_button.active {
+    background: var(--click-color);
+}
+
+#toga_tools_button.active:hover {
+    background: var(--click-color);
+}
+
+#toga_tools_button.active #toga_tools_button_label {
+    color: var(--bg-color)
+}
+
+#toga_tools_button:hover {
+    background: var(--btn-hover-color);
+}
+
+#toga_tools_button_box.mobile {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 60px;
+    height: 60px;
+    padding: 5px;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: stretch;
+    box-sizing: border-box;
+}
+
+#toga_tools_button_box.mobile #toga_tools_button {
+    box-shadow: 0 -3px 5px #00000070;
+}
+
+#toga_tools_button_label {
+    color: var(--text-color);
+    font-size: 16px;
+}
+
+#toga_tools_switch_box {
+    position: fixed;
+    left: 5px;
+    right: 5px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+    box-shadow: 0 3px 5px #00000070;
+    z-index: 101;
+}
+
+@media (min-width: 880px) {
+    #toga_tools_switch_box {
+        left: 185px;
+    }
+}
+
+#toga_tools_verify_tab {
+    cursor: pointer;
+    background: var(--btn-color);
+    justify-content: center;
+    padding: 10px;
+    border-top-left-radius: 10px;
+    gap: 10px;
+    transition: background 0.2s ease;
+}
+
+#toga_tools_verify_tab.active {
+    cursor: default;
+    background: var(--btn-hover-color);
+}
+
+#toga_tools_verify_tab.active #toga_tools_verify_tab_label,
+#toga_tools_verify_tab.active #tools_verify_tab_icon {
+    color: var(--text-color);
+}
+
+#toga_tools_verify_tab:hover {
+    background: var(--btn-hover-color);
+}
+
+#toga_tools_verify_tab:hover #toga_tools_verify_tab_label,
+#toga_tools_verify_tab:hover #tools_verify_tab_icon {
+    color: var(--text-color);
+}
+
+#toga_tools_sign_tab {
+    cursor: pointer;
+    background: var(--btn-color);
+    justify-content: center;
+    padding: 10px;
+    border-top-right-radius: 10px;
+    gap: 10px;
+    transition: background 0.2s ease;
+}
+
+#toga_tools_sign_tab.active {
+    cursor: default;
+    background: var(--btn-hover-color);
+    color: var(--text-color);
+}
+
+#toga_tools_sign_tab.active #toga_tools_sign_tab_label,
+#toga_tools_sign_tab.active #tools_sign_tab_icon {
+    color: var(--text-color);
+}
+
+#toga_tools_sign_tab:hover {
+    background: var(--btn-hover-color);
+}
+
+#toga_tools_sign_tab:hover #toga_tools_sign_tab_label,
+#toga_tools_sign_tab:hover #tools_sign_tab_icon {
+    color: var(--text-color);
+}
+
+#tools_verify_tab_icon,
+#tools_sign_tab_icon {
+    color: var(--icon-color);
+}
+
+#toga_tools_verify_tab_label,
+#toga_tools_sign_tab_label {
+    color: var(--icon-color);
+    font-size: 14px;
+    transition: color 0.2s ease;
+}
+
+#toga_tools_verify_box,
+#toga_tools_sign_box {
+    display: none;
+    background: var(--box-color);
+    padding: 5px;
+    border-radius: 0 0 10px 10px;
+    opacity: 0;
+    margin-top: 40px;
+    transition: opacity 0.2s ease;
+}
+
+#toga_tools_verify_box.show,
+#toga_tools_sign_box.show {
+    display: flex;
+    flex: 1;
+}
+
+#toga_tools_verify_box.active,
+#toga_tools_sign_box.active {
+    opacity: 1;
+}
+
+#toga_tools_verify_message_box,
+#toga_tools_verify_address_box,
+#toga_tools_verify_signature_box,
+#toga_tools_sign_message_box {
+    display: grid;
+    grid-template-columns: 0.3fr 1fr;
+    padding: 5px;
+    gap: 10px;
+}
+
+#toga_tools_verify_message_label,
+#toga_tools_verify_address_label,
+#toga_tools_verify_signature_label,
+#toga_tools_sign_message_label {
+    color: var(--text-color);
+}
+
+@media (max-width: 690px) {
+    #toga_tools_verify_message_box,
+    #toga_tools_verify_address_box,
+    #toga_tools_verify_signature_box,
+    #toga_tools_sign_message_box {
+        grid-template-columns: 1fr;
+    }
+}
+
+#toga_tools_limit_box {
+    display: flex;
+    width: 100%;
+    padding: 5px;
+}
+
+#toga_tools_limit_value {
+    margin-left: auto;
+    color: var(--text-color);
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+#toga_tools_limit_value.error {
+    color: #ff4747;
+}
+
+#toga_tools_result_box {
+    border-radius: 10px;
+    width: 90%;
+    display: none;
+    font-size: 13px;
+    color: var(--text-color);
+    align-self: center;
+}
+
+#toga_tools_result_box.success {
+    border: 1px solid rgba(43, 255, 0, 0.25);
+}
+
+#toga_tools_result_box.error {
+    border: 1px solid rgba(255, 0, 0, 0.25);
+}
+
+#toga_tools_result_box.active {
+    display: block;
+}
+
+
+/**********************************************************************
+ * Settings
+ **********************************************************************/
+
+
+#toga_settings_page {
+    display: none;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    overflow-y: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    gap: 10px;
+    margin-top: 165px;
+    margin-bottom: 60px;
+}
+
+#toga_settings_page.show {
+    display: flex;
+}
+
+#toga_settings_page.active {
+    opacity: 1;
+}
+
+#toga_settings_manage_wallet_box {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    background: var(--box-color);
+    padding: 10px;
+    border-radius: 10px;
+    gap: 10px;
+    align-items: center;
+}
+
+@media (max-width: 690px) {
+    #toga_settings_manage_wallet_box {
+        grid-template-columns: 1fr;
+    }
+}
+
+#toga_settings_logout_box {
+    box-sizing: border-box;
+    display: flex;
+    background: var(--box-color);
+    padding: 10px;
+    border-radius: 10px;
+    gap: 10px;
+    align-items: center;
+}
+
+#toga_settings_manage_wallet_label {
+    color: var(--text-color);
+}
+
+#toga_settings_manage_buttons_box {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    width: fit-content;
+    padding: 5px;
+    gap: 15px;
+    align-items: center;
+    border-radius: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+#toga_settings_password_button,
+#toga_settings_backup_button,
+#toga_settings_delete_button,
+#toga_settings_logout_button {
+    cursor: pointer;
+    width: fit-content;
+    background: var(--btn-color);
+    padding: 5px;
+    border-radius: 10px;
+    gap: 10px;
+    transition: background 0.2s ease;
+    align-items: center;
+}
+
+#toga_settings_password_button:hover,
+#toga_settings_delete_button:hover,
+#toga_settings_backup_button:hover,
+#toga_settings_logout_button:hover {
+    background: var(--btn-hover-color);
+}
+
+#toga_settings_logout_button:hover #settings_logout_button_icon {
+    color: #ff4747;
+}
+
+#settings_password_button_icon,
+#settings_backup_button_icon,
+#settings_delete_button_icon,
+#settings_logout_button_icon {
+    font-size: 18px;
+    color: var(--text-color);
+}
+
+#toga_settings_password_button_label,
+#toga_settings_backup_button_label,
+#toga_settings_delete_button_label {
+    color: var(--text-color);
+    font-size: clamp(11px, 1.5vw, 13px);
+}
+
+@media (max-width: 480px) {
+    #toga_settings_manage_buttons_box {
+        grid-template-columns: 1fr;
+        margin-left: 10px;
+        border-bottom: none;
+        border-left: 1px solid var(--border-color);
+    }
+    #toga_settings_password_button,
+    #toga_settings_backup_button,
+    #toga_settings_delete_button {
+        width: 100%;
+    }
+    #toga_settings_password_button_label,
+    #toga_settings_backup_button_label,
+    #toga_settings_delete_button_label {
+        font-size: 14px;
+    }
+}
+
+#toga_settings_logout_button_label {
+    color: #ff4747;
+}
+
+#toga_backup_note_box {
+    display: flex;
+    background: var(--bar-color);
+    border: 1px solid var(--click-color);
+    border-radius: 10px;
+    padding: 10px;
+    justify-content: center;
+    min-width: 0;
+    margin-bottom: 10px;
+}
+
+#toga_backup_note_label {
+    color: var(--text-color);
+    font-size: 13px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    line-height: 1.6;
+    max-width: 100%;
+    text-align: center;
+}
+
+#toga_backup_value_box {
+    display: flex;
+    background: var(--bar-color);
+    border: 1px dashed var(--border-color);
+    border-radius: 10px;
+    padding: 10px;
+    justify-content: center;
+    min-width: 0;
+}
+
+#toga_backup_value {
+    color: var(--text-color);
+    font-size: 15px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    line-height: 1.6;
+    max-width: 100%;
+    text-align: center;
+    word-spacing: 6px;
+    filter: blur(3px);
+    transition: filter 0.2s ease;
+}
+
+#toga_backup_value:hover {
+    filter: blur(0);
+}
+
+#toga_backup_copy_button {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    background: var(--btn-color);
+    border-radius: 10px;
+    padding: 10px;
+    justify-self: center;
+    align-self: center;
+    gap: 5px;
+    transition: background 0.2s ease;
+}
+
+#toga_backup_copy_button:hover {
+    background: var(--btn-hover-color);
+}
+
+#toga_backup_copy_button:hover #backup_copy_icon {
+    color: var(--text-color);
+}
+
+#backup_copy_icon {
+    color: var(--icon-color);
+    transition: color 0.2s ease;
+}
+
+#toga_backup_copy_label {
+    color: var(--text-color);
+}
+
+
+/**********************************************************************
+ * Transaction
+ **********************************************************************/
+
+
+#toga_home_transaction_box {
+    width: 100%;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 40px 0.5fr 1fr minmax(0, 1fr) minmax(0, 1fr);
+    cursor: pointer;
+    padding: 10px;
+    background: var(--box-color);
+    border-radius: 10px;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+#toga_home_transaction_box.pulse {
+    background: var(--pulse-color);
+}
+
+#toga_home_transaction_box:hover {
+    background: var(--btn-color);
+}
+
+.transaction_direction_icon {
+    font-size: 16px;
+    flex-shrink: 0;
+    padding: 10px;
+    background: var(--btn-color);
+    border-radius: 6px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.transaction_direction_icon.sent {
+    color: #ff4747;
+}
+
+.transaction_direction_icon.received {
+    color: var(--green-color);
+}
+
+.transaction_direction_icon.self {
+    color: var(--yello-color);
+}
+
+.transaction_confirmations_icon {
+    color: var(--text-color);
+    font-size: 18px;
+    justify-self: center;
+}
+
+.transaction_amount_box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+
+.transaction_btcz_icon {
+    font-size: 18px;
+}
+
+.transaction_amount_label {
+    color: var(--text-color);
+    font-size: 14px;
+    font-family: 'Monda';
+    text-align: center;
+}
+
+.transaction_fiat_box {
+    display: flex;
+    justify-self: center;
+    min-width: 0;
+}
+
+.transaction_fiat_label {
+    color: var(--text-color);
+    font-family: 'Monda';
+    font-size: 14px;
+    text-align: center;
+}
+
+.transaction_fiat_label.received {
+    color: var(--green-color);
+}
+
+.transaction_fiat_label.sent {
+    color: #ff4747;
+}
+
+.transaction_time_box {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    align-items: center;
+    justify-self: end;
+    gap: 10px;
+    min-width: 0;
+}
+
+.transaction_time_icon {
+    font-size: 16px;
+    color: var(--icon-color);
+}
+
+.transaction_time_label {
+    color: var(--text-color);
+    font-size: 12px;
+    font-family: 'Monda';
+    text-align: center;
+    white-space: nowrap;
+}
+
+@media (max-width: 585px) {
+    #toga_home_transaction_box {
+        grid-template-columns: 40px 0.3fr 1fr auto;
+        row-gap: 10px;
+    }
+    .transaction_direction_icon {
+        font-size: 12px;
+    }
+    .transaction_confirmations_icon {
+        font-size: 16px;
+    }
+    .transaction_fiat_label {
+        font-size: 12px;
+    }
+    .transaction_time_box {
+        grid-column: 1 / -1;
+        justify-self: start;
+    }
+    .transaction_time_icon {
+        font-size: 13px;
+    }
+    .transaction_time_label {
+        color: var(--icon-color);
+    }
+}
+
+#toga_txinfo_drawer_box {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100%;
+    min-width: 0;
+    gap: 10px;
+    border-radius: 10px;
+    border: 1px dashed var(--border-color);
+    padding: 5px;
+}
+
+#toga_txinfo_txid_box {
+    position: relative;
+    width: 100%;
+}
+
+#toga_txinfo_txid_label {
+    display: block;
+    width: 100%;
+    padding-right: 32px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    -webkit-user-select: text;
+    user-select: text;
+}
+
+#txinfo_copy_icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+#toga_txinfo_direction_box {
+    gap: 10px;
+    align-items: center;
+    width: 100%;
+    border-radius: 10px;
+    margin: 5px 0;
+    padding: 5px;
+    background: var(--bg-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+#toga_txinfo_direction_label {
+    color: var(--text-color);
+    margin-right: 10px;
+}
+
+#toga_txinfo_amount_box {
+    display: flex;
+    gap: 10px;
+}
+
+#txinfo_fee_icon,
+#txinfo_size_icon,
+#txinfo_confirmations_icon,
+#txinfo_time_icon,
+#txinfo_locktime_icon,
+#txinfo_height_icon {
+    color: var(--icon-color);
+}
+
+#toga_txinfo_amount_label,
+#toga_txinfo_amount_value,
+#toga_txinfo_fee_label,
+#toga_txinfo_confirmations_label,
+#toga_txinfo_time_label,
+#toga_txinfo_height_label,
+#toga_txinfo_size_label,
+#toga_txinfo_locktime_label {
+    color: var(--text-color);
+}
+
+#toga_txinfo_fee_box,
+#toga_txinfo_size_box,
+#toga_txinfo_confirmations_box,
+#toga_txinfo_time_box,
+#toga_txinfo_locktime_box,
+#toga_txinfo_height_box {
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    width: 100%;
+    gap: 10px;
+}
+
+#toga_txinfo_addresses_box {
+    display: grid;
+    grid-template-columns: 0.3fr 1fr;
+    gap: 10px;
+    align-items: center;
+    margin-top: 10px;
+}
+
+#toga_txinfo_addresses_list {
+    padding: 5px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    gap: 10px;
+}
+
+.txinfo_address_widget {
+    color: var(--text-color);
+    font-family: 'Monda';
+    font-size: 14px;
+    -webkit-user-select: text;
+    user-select: text;
+}
+
+@media (max-width: 560px) {
+    #toga_txinfo_txid_label {
+        font-size: clamp(13px, 2vw, 16px);
+    }
+    #toga_txinfo_amount_box {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    #toga_txinfo_amount_label,
+    #toga_txinfo_amount_value,
+    #toga_txinfo_direction_label {
+        font-size: clamp(13px, 2vw, 16px);
+    }
+    #txinfo_fee_icon,
+    #txinfo_size_icon,
+    #txinfo_confirmations_icon,
+    #txinfo_time_icon,
+    #txinfo_locktime_icon,
+    #txinfo_height_icon,
+
+    #toga_txinfo_fee_label,
+    #toga_txinfo_confirmations_label,
+    #toga_txinfo_time_label,
+    #toga_txinfo_height_label,
+    #toga_txinfo_size_label,
+    #toga_txinfo_locktime_label {
+        font-size: clamp(12px, 2vw, 15px);
+    }
+    #toga_txinfo_addresses_box {
+        grid-template-columns: 1fr;
+    }
+    .txinfo_address_widget {
+        font-size: clamp(11px, 2vw, 14px);
+    }
+}
+
+
+/**********************************************************************
+ * Password
+ **********************************************************************/
+
+
+#toga_password_dialog {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    height: 100%;
+    border-radius: 10px;
+    justify-content: center;
+}
+
+#toga_password_buttons_box {
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#toga_password_confirm_button,
+#toga_password_cancel_button {
+    padding: 10px;
+    background: var(--btn-color);
+    color: var(--text-color);
+    border-radius: 10px;
+    cursor: pointer;
+    align-self: center;
+    justify-content: center;
+    width: 120px;
+    transition: background 0.2s ease;
+}
+
+#toga_password_confirm_button:hover,
+#toga_password_cancel_button:hover {
+    background: var(--btn-hover-color);
+}
+
+#toga_password_error_box {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 80, 80, 0.15),
+        rgba(255, 0, 0, 0.08)
+    );
+    border: 1px solid rgba(255, 0, 0, 0.25);
+    margin-top: 20px;
+    border-radius: 10px;
+    width: 100%;
+    padding: 0 10px;
+    font-size: 11px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: all 0.2s ease
+}
+
+#toga_password_error_box.active {
+    max-height: 200px;
+    opacity: 1;
+    transform: translateY(0);
+    padding: 10px;
+}
+
+.password_input_prefix_icon {
+    cursor: pointer;
+    color: var(--text-color);
+    padding-right: 12px;
+    font-size: 20px;
+    transition: color 0.2s ease;
+}
+
+.password_input_prefix_icon:hover {
+    color: var(--click-color);
+}
+
+#toga_password_timer_box {
+    padding: 10px;
+}
+
+#toga_password_timer_note {
+    color: var(--icon-color);
+    font-size: 14px;
+}
+
+
+/**********************************************************************
+ * Delete
+ **********************************************************************/
+
+#toga_delete_dialog {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    height: 100%;
+    border-radius: 10px;
+    justify-content: center;
+}
+
+#toga_delete_buttons_box {
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#toga_delete_confirm_button,
+#toga_delete_cancel_button {
+    padding: 10px;
+    background: var(--btn-color);
+    color: var(--text-color);
+    border-radius: 10px;
+    cursor: pointer;
+    align-self: center;
+    justify-content: center;
+    width: 120px;
+    transition: background 0.2s ease;
+}
+
+#toga_delete_confirm_button:hover,
+#toga_delete_cancel_button:hover {
+    background: var(--btn-hover-color);
+}
+
+#toga_delete_error_box {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 80, 80, 0.15),
+        rgba(255, 0, 0, 0.08)
+    );
+    border: 1px solid rgba(255, 0, 0, 0.25);
+    margin-top: 20px;
+    border-radius: 10px;
+    width: 100%;
+    padding: 0 10px;
+    font-size: 11px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: all 0.2s ease
+}
+
+#toga_delete_error_box.active {
+    max-height: 200px;
+    opacity: 1;
+    transform: translateY(0);
+    padding: 10px;
+}
+
+/**********************************************************************
+ * Logout
+ **********************************************************************/
+
+
+#toga_logout_dialog {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    height: 100%;
+    border-radius: 10px;
+    justify-content: center;
+}
+
+#toga_logout_buttons_box {
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#toga_logout_confirm_button,
+#toga_logout_cancel_button {
+    padding: 10px;
+    background: var(--btn-color);
+    color: var(--text-color);
+    border-radius: 10px;
+    cursor: pointer;
+    align-self: center;
+    justify-content: center;
+    width: 120px;
+    transition: background 0.2s ease;
+}
+
+#toga_logout_confirm_button:hover,
+#toga_logout_cancel_button:hover {
+    background: var(--btn-hover-color);
+}
+
+
+/**********************************************************************
+ * Tooltip
+ **********************************************************************/
+
+.tooltip {
+    position: absolute;
+    background: var(--tooltip-color);
+    color: var(--text-color);
+    font-family: 'Monda';
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 9991;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 4px #00000070;
+}
+
+.tooltip.show {
+    opacity: 0.9;
+}
+
+.tooltip.top    { transform: translateY(-8px); }
+.tooltip.bottom { transform: translateY(8px); }
+.tooltip.left   { transform: translateX(-8px); }
+.tooltip.right  { transform: translateX(8px); }
+
+
+.dialog_spinner {
+    font-size: 25px;
+    --indicator-color: var(--click-color);
+    --track-width: 5px;
+    align-self: center;
+}
+
+.dialog_spinner.hidden {
+    display: none;
+}
+
+
+/**********************************************************************
+ * QRScanner
+ **********************************************************************/
+
+#toga_qr_scanner {
+    display: flex;
+    width: 300px;
+    justify-self: center;
+    align-self: center;
+    border-radius: 10px;
+}
+
+#toga_qr_scanner::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 2px solid rgba(255,255,255,0.25);
+    border-radius: 16px;
+    pointer-events: none;
+}
+
+#toga_qr_scanner::before {
+    content: "";
+    position: absolute;
+    left: 10%;
+    width: 80%;
+    height: 2px;
+    background: rgba(0,255,0,0.7);
+    animation: scan-line 2s linear infinite;
+}
+
+@keyframes scan-line {
+    0% { top: 10%; }
+    50% { top: 80%; }
+    100% { top: 10%; }
+}

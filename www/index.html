@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <base href="/">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="theme-color" content="#e7d801" media="(prefers-color-scheme: light)">
+        <title>BitcoinZ - Electrum Web Wallet</title>
+        <link rel="stylesheet" href="/static/modules/pyscript/core.css">
+        <link rel="icon" type="image/png" href="favicon.ico"/>
+        
+        <meta property="og:title" content="BitcoinZ - Electrum Web Wallet">
+        <meta property="og:description" content="BitcoinZ - Electrum Web Wallet">
+        <meta property="og:url" content="https://electrum.btcz.rocks">
+        <meta property="og:type" content="website">
+        <meta property="og:image" content="/static/images/BitcoinZ.png">
+
+        <script type="module">
+            import { hooks } from "/static/modules/pyscript/core.js";
+            hooks.main.onReady.add(() => {
+                document.getElementById("briefcase-splash").classList.add("hidden");
+            });
+        </script>
+        
+        <script type="module" src="/static/modules/pyscript/core.js"></script>
+        <script src="/static/modules/@html5-qrcode/html5-qrcode.min.js"></script>
+        <script src="/static/js/script.js"></script>
+        <link rel="manifest" href="/static/manifest.json">
+
+        <link rel="stylesheet" href="/static/modules/@shoelace-style/shoelace/dist/themes/light.css" />
+        <script type="module" src="/static/modules/@shoelace-style/shoelace/dist/shoelace.js"></script>
+        <script type="module">
+            import { registerIconLibrary } from '/static/modules/@shoelace-style/shoelace/dist/utilities/icon-library.js';
+
+            registerIconLibrary('fa', {
+                resolver: name => {
+                const filename = name.replace(/^fa[rbs]-/, '');
+                let folder = 'regular';
+                if (name.substring(0, 4) === 'fas-') folder = 'solid';
+                if (name.substring(0, 4) === 'fab-') folder = 'brands';
+                return `/static/modules/@fontawesome/svgs/${folder}/${filename}.svg`;
+                },
+                mutator: svg => svg.setAttribute('fill', 'currentColor')
+            });
+        </script>
+
+        <link rel="stylesheet" href="/static/css/style.css?v=103">
+    </head>
+    <body id="app-placeholder">
+        <div id="briefcase-splash">
+            <img src="/static/assets/Electrum.png" alt="BitcoinZ - Electrum Web Wallet">
+            <p>Loading Wallet...</p>
+        </div>
+
+        <div id="qr-reader" style="width:300px; display:none;"></div>
+
+        <script type="py" async="false" config="pyscript.toml">
+            import runpy
+            result = runpy.run_module(
+                "webui", run_name="__main__", alter_sys=True
+            )
+        </script>
+
+    </body>
+</html>
