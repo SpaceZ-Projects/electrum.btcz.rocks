@@ -2,7 +2,7 @@
 [tool.briefcase]
 project_name = "BitcoinZ - Electrum Web Wallet"
 bundle = "com.btcz.electrum"
-version = "1.0.8"
+version = "1.0.9"
 url = "https://electrum.btcz.rocks"
 license.file = "LICENSE"
 author = "BTCZCommunity"

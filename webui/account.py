@@ -9,6 +9,7 @@ from .wallet import Wallet, list_accounts, create_account, get_account, decrypt_
 from .create import Create, NewWallet, ImportWallet
 from .widget import Tooltip, Alert
 from .dialog import Password
+from .social import Social
 from .util import is_strong_password
 
 
@@ -164,6 +165,8 @@ class Accounts(toga.Box):
             )
         )
 
+        social_box = Social()
+
         self._impl.native.appendChild(
             electrum_title
         )
@@ -172,7 +175,8 @@ class Accounts(toga.Box):
             self.accounts_box,
             self.create_panel,
             self.new_panel,
-            self.import_panel
+            self.import_panel,
+            social_box
         )
         electrum_info_box.add(
             electrum_status_box

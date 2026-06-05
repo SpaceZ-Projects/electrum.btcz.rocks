@@ -1058,7 +1058,7 @@ sl-range::part(input)::-moz-range-thumb {
 #toga_import_box {
     display: none;
     width: clamp(300px, 80vw, 600px);
-    padding: 5px;
+    padding: 10px;
     border-radius: 10px;
     background: var(--box-color);
     border: 1px solid var(--border-color);
@@ -2732,6 +2732,36 @@ sl-range::part(input)::-moz-range-thumb {
 #toga_logout_confirm_button:hover,
 #toga_logout_cancel_button:hover {
     background: var(--btn-hover-color);
+}
+
+
+/**********************************************************************
+ * Social
+ **********************************************************************/
+
+
+#toga_social_box {
+    display: flex;
+    background: var(--box-color);
+    padding: 10px;
+    border-radius: 10px;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+#social_github_icon,
+#social_discord_icon,
+#social_twitter_icon {
+    cursor: pointer;
+    color: var(--icon-color);
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+#social_github_icon:hover,
+#social_discord_icon:hover,
+#social_twitter_icon:hover {
+    color: var(--text-color);
 }
 
 

@@ -20,7 +20,7 @@ def main():
         app_id = "com.btcz.electrum",
         home_page = "https://electrum.btcz.rocks",
         author = "BTCZCommunity",
-        version="1.0.8"
+        version="1.0.9"
     )
     app.main_loop()
 
