@@ -1,7 +1,7 @@
 {
   "name": "BitcoinZ Electrum Web Wallet",
   "short_name": "Electrum Wallet",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0b0b0b",

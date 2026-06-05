@@ -10,5 +10,5 @@ packages = [
     "/static/wheels/toga_core-0.5.3-py3-none-any.whl",
     "/static/wheels/toga_web-0.5.3-py3-none-any.whl",
     "/static/wheels/travertino-0.5.3-py3-none-any.whl",
-    "/static/wheels/webui-1.0.8-py3-none-any.whl",
+    "/static/wheels/webui-1.0.9-py3-none-any.whl",
 ]
