@@ -19,6 +19,12 @@ class Receive(toga.Box):
 
         self.app = app
 
+        btcz_icon = create_element(
+            "sl-icon",
+            id="receive_btcz_icon",
+            name="btcz"
+        )
+
         self.qr_code = create_element(
             "sl-qr-code",
             id="receive_qr_code",
@@ -62,6 +68,7 @@ class Receive(toga.Box):
             self.copy_button
         )
         qr_code_box._impl.native.appendChild(self.qr_code)
+        qr_code_box._impl.native.appendChild(btcz_icon)
         self.copy_button._impl.native.appendChild(
             copy_icon
         )
@@ -76,3 +83,10 @@ class Receive(toga.Box):
 
     def on_copy_click(self, event):
         clipboard_copy(self.app.wallet.address)
+
+    
+    def update_qr_size(self, view):
+        if view == "desktop":
+            self.qr_code.size = 280
+        elif view == "mobile":
+            self.qr_code.size = 240

@@ -1491,6 +1491,21 @@ sl-range::part(input)::-moz-range-thumb {
     border-radius: 10px;
 }
 
+#receive_btcz_icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(1px 1px 2px #000000);
+    font-size: 60px;
+}
+
+@media (max-width: 880px) {
+    #receive_btcz_icon {
+        font-size: 45px;
+    }
+}
+
 #toga_receive_address_label {
     color: var(--text-color);
     font-size: 16px;
