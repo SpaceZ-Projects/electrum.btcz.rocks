@@ -1476,6 +1476,7 @@ sl-range::part(input)::-moz-range-thumb {
 }
 
 #toga_receive_qr_code_box {
+    position: relative;
     padding: 10px;
     background: var(--box-color);
     border-radius: 10px;
